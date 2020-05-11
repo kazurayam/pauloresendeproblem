@@ -19,6 +19,10 @@ import java.nio.file.Path
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.testobject.ConditionType
 
+// modify WebUI.* keywords which take TestObject as arg0
+// so that they call Highlight.on() automatically
+CustomKeywords.'com.kazurayam.ksbackyard.HighlightElement.pandemic'()
+
 File htmlFile = Paths.get(RunConfiguration.getProjectDir()).resolve("a.html").toFile()
 WebUI.openBrowser(htmlFile.toURI().toURL().toExternalForm())
 
@@ -29,7 +33,7 @@ tObj.addProperty("xpath", ConditionType.EQUALS,
 	+ "/table/tbody/tr/td/table/tbody/tr[1]/td[3]/span/input");
 
 WebUI.verifyElementPresent(tObj, 5, FailureHandling.STOP_ON_FAILURE)
-WebUI.modifyObjectProperty(tObj, "value", "As you like it")
+WebUI.setText(tObj, "As you like it")
 
 WebUI.delay(3)
 WebUI.closeBrowser()
